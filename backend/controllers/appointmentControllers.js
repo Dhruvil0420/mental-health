@@ -262,6 +262,8 @@ const getAllAppointments = async (req, res) => {
             message: error.message 
         });
     }
+};
+
 // API to manually mark appointment as paid (for admin)
 const markPaidAppointment = async (req, res) => {
     try {
