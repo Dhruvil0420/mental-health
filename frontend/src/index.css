@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Six+Caps&family=Varela+Round&display=swap');
+
+* {
+  font-family: 'Outfit', sans-serif;
+}
+
+.active hr {
+  @apply block;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@theme {
+  --color-primary: #5f6fff;
+  --color-primary-dull: #005a87;
+}
+
+@media (max-width:740px){
+  .active p {
+    @apply text-white bg-primary;
+  }
+}

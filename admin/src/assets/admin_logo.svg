@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" width="260" height="80">
+  <!-- Icon Base -->
+  <rect x="0" y="15" width="40" height="40" rx="14" fill="#6370FF" />
+  
+  <!-- Sparkle/Star Cutout -->
+  <path d="M-10,38 Q14,38 14,62 Q14,38 38,38 Q14,38 14,14 Q14,38 -10,38 Z" fill="#FFFFFF" />
+  
+  <!-- Top Right Accent Dot -->
+  <circle cx="42" cy="14" r="3.5" fill="#6370FF" />
+
+  <!-- Primary Text: Mental health -->
+  <text x="55" y="38" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="24" fill="#0B1069" letter-spacing="-0.5">Mental health</text>
+  
+  <!-- Sub-text: Admin -->
+  <text x="55" y="60" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="16" fill="#6370FF" letter-spacing="1">ADMIN</text>
+</svg>
