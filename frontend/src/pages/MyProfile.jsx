@@ -2,7 +2,7 @@ import React, {useState ,useContext} from 'react'
 import { AppContext } from '../context/AppContext';
 import {assets} from '../assets/assets'
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 const MyProfile = () => {
     const { userData,setUserData,token,backendUrl,loadUserProfileData } = useContext(AppContext);
@@ -83,7 +83,7 @@ const MyProfile = () => {
           <div className='flex-1 text-center sm:text-left'>
             {isEdit ? (
               <input 
-                className='bg-gray-50 text-2xl sm:text-3xl font-semibold max-w-full sm:max-w-md px-3 py-2 rounded-lg border border-gray-200 focus:border-primary focus:outline-none transition-all' 
+                className='bg-gray-50 text-xl font-medium max-w-full sm:max-w-md px-3 py-1.5 rounded-lg border border-gray-300 focus:border-primary focus:outline-none transition-all text-gray-800' 
                 type="text" 
                 value={userData.name} 
                 onChange={e => setUserData(prev =>({...prev,name:e.target.value}))} 

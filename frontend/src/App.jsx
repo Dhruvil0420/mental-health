@@ -13,14 +13,14 @@ import PaymentSuccess from './pages/PaymentSuccess'
 import PaymentCancel from './pages/PaymentCancel'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import { ToastContainer, toast } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 
 
 const App = () => {
   return (
 
     <div className='mx-4 sm:mx-[10%]'> 
-      <ToastContainer/>
+      <Toaster position="top-center" reverseOrder={false} />
     <Navbar/>
 
       <Routes>

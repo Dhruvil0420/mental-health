@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { AdminContext } from '../context/AdminContext';
 
 const Login = () => {
@@ -16,6 +16,7 @@ const Login = () => {
       if (data.success) {
         localStorage.setItem('token', data.token);
         setAToken(data.token);
+        toast.success(data.message || 'Welcome back, Admin!');
       } else {
         toast.error(data.message);
       }

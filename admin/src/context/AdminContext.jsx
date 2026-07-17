@@ -1,6 +1,6 @@
 import React, { createContext, useEffect } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { useState } from 'react';
 
 // ✅ Create context ONLY ONCE

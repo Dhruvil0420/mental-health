@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AppContext } from '../context/AppContext'
 import axios from 'axios'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { useEffect } from 'react'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -28,6 +28,7 @@ const Login = () => {
         if(data.success) {
           localStorage.setItem('token', data.token);
           setToken(data.token);
+          toast.success(data.message || 'Account created successfully!');
         }else{
           toast.error(data.message);
         }
@@ -41,6 +42,7 @@ const Login = () => {
         if(data.success) {
           localStorage.setItem('token', data.token);
           setToken(data.token);
+          toast.success(data.message || 'Welcome back!');
         }else{
           toast.error(data.message);
         }

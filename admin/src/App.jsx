@@ -13,8 +13,7 @@ import DoctorsList from './pages/Admin/DoctorsList';
 import { Routes, Route } from 'react-router-dom';
 
 // ✅ Toast
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'react-hot-toast';
 
 // ✅ Context
 import { AdminContext } from './context/AdminContext';
@@ -25,8 +24,8 @@ const App = () => {
 
   return (
     <>
-      {/* ✅ Only ONE ToastContainer needed */}
-      <ToastContainer position="top-right" autoClose={3000} />
+      {/* ✅ Only ONE Toaster needed */}
+      <Toaster position="top-right" reverseOrder={false} />
 
       {aToken ? (
         <div className='bg-[#F8F9FD] min-h-screen'>

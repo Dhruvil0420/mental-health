@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { assets } from '../../assets/assets'
 import { AdminContext } from '../../context/AdminContext'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import axios from 'axios'
 
 const Dashboard = () => {
@@ -84,109 +84,123 @@ const Dashboard = () => {
     const topDoctors = getTopDoctors()
 
     return (
-        <div className='m-5'>
-            <h1 className='text-2xl font-semibold'>Admin Dashboard</h1>
+        <div className="p-6 max-w-7xl mx-auto space-y-8 animate-fadeIn">
+            {/* Header */}
+            <div>
+                <h1 className="text-3xl font-bold text-slate-800">Dashboard</h1>
+                <p className="text-sm text-slate-500 mt-1">Welcome back, Admin. Here is today's practice overview.</p>
+            </div>
             
             {/* Stats Cards */}
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6'>
-                <div className='bg-white border border-gray-200 rounded-lg p-4'>
-                    <div className='flex items-center gap-3'>
-                        <img className='w-12' src={assets.doctor_icon} alt="Doctors" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                {/* Total Doctors */}
+                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-350">
+                    <div className="flex items-center justify-between">
                         <div>
-                            <p className='text-2xl font-semibold'>{topDoctors.length}</p>
-                            <p className='text-gray-600 text-sm'>Total Doctors</p>
+                            <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Doctors</p>
+                            <h3 className="text-3xl font-bold text-slate-800 mt-2">{topDoctors.length}</h3>
+                        </div>
+                        <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+                            <img className="w-6 h-6 opacity-90" src={assets.doctor_icon} alt="Doctors" />
                         </div>
                     </div>
                 </div>
                 
-                <div className='bg-white border border-gray-200 rounded-lg p-4'>
-                    <div className='flex items-center gap-3'>
-                        <img className='w-12' src={assets.patients_icon} alt="Patients" />
+                {/* Total Patients */}
+                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-350">
+                    <div className="flex items-center justify-between">
                         <div>
-                            <p className='text-2xl font-semibold'>{appointments.length}</p>
-                            <p className='text-gray-600 text-sm'>Total Patients</p>
+                            <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Patients</p>
+                            <h3 className="text-3xl font-bold text-slate-800 mt-2">{appointments.length}</h3>
+                        </div>
+                        <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center">
+                            <img className="w-6 h-6 opacity-90" src={assets.patients_icon} alt="Patients" />
                         </div>
                     </div>
                 </div>
                 
-                <div className='bg-white border border-gray-200 rounded-lg p-4'>
-                    <div className='flex items-center gap-3'>
-                        <img className='w-12' src={assets.appointments_icon} alt="Appointments" />
+                {/* Total Appointments */}
+                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-350">
+                    <div className="flex items-center justify-between">
                         <div>
-                            <p className='text-2xl font-semibold'>{stats.total}</p>
-                            <p className='text-gray-600 text-sm'>Total Appointments</p>
+                            <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider">Appointments</p>
+                            <h3 className="text-3xl font-bold text-slate-800 mt-2">{stats.total}</h3>
+                        </div>
+                        <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center">
+                            <img className="w-6 h-6 opacity-90" src={assets.appointments_icon} alt="Appointments" />
                         </div>
                     </div>
                 </div>
                 
-                <div className='bg-white border border-gray-200 rounded-lg p-4'>
-                    <div className='flex items-center gap-3'>
-                        <img className='w-12' src={assets.earning_icon} alt="Earnings" />
+                {/* Total Earnings */}
+                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-350">
+                    <div className="flex items-center justify-between">
                         <div>
-                            <p className='text-2xl font-semibold'>${stats.totalEarnings.toLocaleString()}</p>
-                            <p className='text-gray-600 text-sm'>Total Earnings</p>
+                            <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider">Total Earnings</p>
+                            <h3 className="text-3xl font-bold text-slate-800 mt-2">${stats.totalEarnings.toLocaleString()}</h3>
+                        </div>
+                        <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center">
+                            <img className="w-6 h-6 opacity-90" src={assets.earning_icon} alt="Earnings" />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Additional Stats */}
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6'>
-                <div className='bg-primary/10 border border-primary/20 rounded-lg p-4'>
-                    <p className='text-xl font-semibold text-primary'>${stats.monthlyEarnings.toLocaleString()}</p>
-                    <p className='text-gray-600 text-sm'>Monthly Earnings</p>
+            {/* Additional Info Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-100/50">
+                <div className="text-center p-3 border-r border-slate-200/60 last:border-0">
+                    <p className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Monthly Revenue</p>
+                    <p className="text-base sm:text-lg font-bold text-primary mt-1">${stats.monthlyEarnings.toLocaleString()}</p>
                 </div>
-                
-                <div className='bg-green-50 border border-green-200 rounded-lg p-4'>
-                    <p className='text-xl font-semibold text-green-600'>{stats.scheduled}</p>
-                    <p className='text-gray-600 text-sm'>Scheduled</p>
+                <div className="text-center p-3 border-r border-slate-200/60 last:border-0">
+                    <p className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Scheduled Slots</p>
+                    <p className="text-base sm:text-lg font-bold text-blue-600 mt-1">{stats.scheduled}</p>
                 </div>
-                
-                <div className='bg-red-50 border border-red-200 rounded-lg p-4'>
-                    <p className='text-xl font-semibold text-red-600'>{stats.cancelled}</p>
-                    <p className='text-gray-600 text-sm'>Cancelled</p>
+                <div className="text-center p-3 border-r border-slate-200/60 last:border-0">
+                    <p className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Cancelled Bookings</p>
+                    <p className="text-base sm:text-lg font-bold text-red-600 mt-1">{stats.cancelled}</p>
                 </div>
-                
-                <div className='bg-blue-50 border border-blue-200 rounded-lg p-4'>
-                    <p className='text-xl font-semibold text-blue-600'>{stats.completed}</p>
-                    <p className='text-gray-600 text-sm'>Completed</p>
+                <div className="text-center p-3 last:border-0">
+                    <p className="text-[10px] sm:text-xs font-semibold text-slate-400 uppercase tracking-wider">Completed Sessions</p>
+                    <p className="text-base sm:text-lg font-bold text-green-600 mt-1">{stats.completed}</p>
                 </div>
             </div>
 
-            {/* Recent Appointments & Top Doctors */}
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8'>
+            {/* Recent Appointments & Top Doctors Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
+                
                 {/* Recent Appointments */}
-                <div className='bg-white border border-gray-200 rounded-lg p-6'>
-                    <h2 className='text-lg font-semibold mb-4'>Recent Appointments</h2>
+                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col">
+                    <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+                        <h2 className="text-lg font-bold text-slate-800">Recent Appointments</h2>
+                        <span className="text-xs text-primary font-medium bg-primary/10 px-2.5 py-1 rounded-full">Last 5 bookins</span>
+                    </div>
                     {loading ? (
-                        <div className='flex justify-center items-center h-32'>
-                            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+                        <div className="flex justify-center items-center h-48">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                         </div>
                     ) : recentAppointments.length === 0 ? (
-                        <div className='text-center py-8 text-gray-500'>
-                            No appointments yet
-                        </div>
+                        <div className="text-center py-12 text-slate-400 text-sm">No recent bookings found.</div>
                     ) : (
-                        <div className='space-y-3'>
-                            {recentAppointments.map((appointment, index) => (
-                                <div key={appointment._id} className='flex items-center justify-between p-3 border border-gray-100 rounded-lg'>
-                                    <div className='flex items-center gap-3'>
-                                        <div className='w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center'>
-                                            <span className='text-primary text-sm font-medium'>
-                                                {appointment.userData.name.split(' ').map(n => n[0]).join('')}
-                                            </span>
+                        <div className="space-y-4 flex-1">
+                            {recentAppointments.map((appointment) => (
+                                <div key={appointment._id} className="flex items-center justify-between p-4 border border-slate-50 hover:bg-slate-50/50 rounded-xl transition-all">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center font-bold text-sm">
+                                            {appointment.userData.name.split(' ').map(n => n[0]).join('')}
                                         </div>
                                         <div>
-                                            <p className='font-medium text-sm'>{appointment.userData.name}</p>
-                                            <p className='text-xs text-gray-600'>{appointment.docData.name}</p>
+                                            <p className="font-semibold text-sm text-slate-800">{appointment.userData.name}</p>
+                                            <p className="text-xs text-slate-500 mt-0.5">Doctor: {appointment.docData.name}</p>
                                         </div>
                                     </div>
-                                    <div className='text-right'>
-                                        <p className='text-sm font-medium'>{appointment.slotDate}</p>
-                                        <span className={`text-xs px-2 py-1 rounded-full ${
-                                            appointment.cancelled ? 'bg-red-100 text-red-600' :
-                                            appointment.isCompleted ? 'bg-green-100 text-green-600' :
-                                            'bg-blue-100 text-blue-600'
+                                    <div className="text-right">
+                                        <p className="text-xs font-semibold text-slate-700">{appointment.slotDate}</p>
+                                        <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mt-1.5 ${
+                                            appointment.cancelled ? 'bg-red-50 text-red-600 border border-red-100' :
+                                            appointment.isCompleted ? 'bg-green-50 text-green-600 border border-green-100' :
+                                            'bg-blue-50 text-blue-600 border border-blue-100'
                                         }`}>
                                             {appointment.cancelled ? 'Cancelled' :
                                              appointment.isCompleted ? 'Completed' :
@@ -200,34 +214,33 @@ const Dashboard = () => {
                 </div>
 
                 {/* Top Performing Doctors */}
-                <div className='bg-white border border-gray-200 rounded-lg p-6'>
-                    <h2 className='text-lg font-semibold mb-4'>Top Performing Doctors</h2>
+                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col">
+                    <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+                        <h2 className="text-lg font-bold text-slate-800">Top Performing Doctors</h2>
+                        <span className="text-xs text-amber-600 font-medium bg-amber-50 px-2.5 py-1 rounded-full">By earnings</span>
+                    </div>
                     {loading ? (
-                        <div className='flex justify-center items-center h-32'>
-                            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+                        <div className="flex justify-center items-center h-48">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                         </div>
                     ) : topDoctors.length === 0 ? (
-                        <div className='text-center py-8 text-gray-500'>
-                            No doctor data available
-                        </div>
+                        <div className="text-center py-12 text-slate-400 text-sm">No doctor statistics available.</div>
                     ) : (
-                        <div className='space-y-3'>
+                        <div className="space-y-4 flex-1">
                             {topDoctors.map((doctor, index) => (
-                                <div key={index} className='flex items-center justify-between p-3 border border-gray-100 rounded-lg'>
-                                    <div className='flex items-center gap-3'>
-                                        <div className='w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center'>
-                                            <span className='text-primary text-sm font-medium'>
-                                                {doctor.name.split(' ').map(n => n[0]).join('')}
-                                            </span>
+                                <div key={index} className="flex items-center justify-between p-4 border border-slate-50 hover:bg-slate-50/50 rounded-xl transition-all">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-amber-50 text-amber-700 rounded-xl flex items-center justify-center font-bold text-sm">
+                                            {doctor.name.split(' ').map(n => n[0]).join('')}
                                         </div>
                                         <div>
-                                            <p className='font-medium text-sm'>{doctor.name}</p>
-                                            <p className='text-xs text-gray-600'>{doctor.speciality}</p>
+                                            <p className="font-semibold text-sm text-slate-800">{doctor.name}</p>
+                                            <p className="text-xs text-slate-500 mt-0.5">{doctor.speciality}</p>
                                         </div>
                                     </div>
-                                    <div className='text-right'>
-                                        <p className='text-sm font-medium'>${doctor.earnings.toLocaleString()}</p>
-                                        <p className='text-xs text-gray-600'>{doctor.appointments} appointments</p>
+                                    <div className="text-right">
+                                        <p className="text-sm font-bold text-slate-800">${doctor.earnings.toLocaleString()}</p>
+                                        <p className="text-xs text-slate-400 mt-0.5">{doctor.appointments} bookings</p>
                                     </div>
                                 </div>
                             ))}
@@ -235,8 +248,7 @@ const Dashboard = () => {
                     )}
                 </div>
             </div>
-
-            </div>
+        </div>
     )
 }
 

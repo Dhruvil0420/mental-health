@@ -68,10 +68,11 @@ const Navbar = () => {
                     </div>
                     <img className='w-2.5' src={assets.dropdown_icon} alt="" />
                     <div className='absolute top-0 right-0 pt-14 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
-                        <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4 '>
-                            <p onClick={()=>navigate('/my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
-                            <p onClick={()=>navigate('/my-appointment')} className='hover:text-black cursor-pointer'>My Appointment</p>
-                            <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
+                        <div className='min-w-48 bg-white border border-slate-100 rounded-2xl flex flex-col gap-1 p-2.5 shadow-xl transition-all duration-300'>
+                            <p onClick={()=>navigate('/my-profile')} className='hover:bg-slate-50 text-slate-700 hover:text-slate-900 px-3.5 py-2.5 rounded-xl cursor-pointer text-sm transition-colors duration-150'>My Profile</p>
+                            <p onClick={()=>navigate('/my-appointment')} className='hover:bg-slate-50 text-slate-700 hover:text-slate-900 px-3.5 py-2.5 rounded-xl cursor-pointer text-sm transition-colors duration-150'>My Appointment</p>
+                            <div className="h-[1px] bg-slate-100 my-1 mx-2"></div>
+                            <p onClick={logout} className='hover:bg-rose-50 text-rose-600 hover:text-rose-700 px-3.5 py-2.5 rounded-xl cursor-pointer text-sm font-semibold transition-colors duration-150'>Logout</p>
                         </div>
                     </div>
                 </div> 

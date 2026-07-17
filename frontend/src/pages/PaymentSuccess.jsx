@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { AppContext } from '../context/AppContext';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();

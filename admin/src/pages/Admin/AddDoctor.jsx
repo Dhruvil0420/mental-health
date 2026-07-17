@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { assets } from '../../assets/assets'
 import {AdminContext} from '../../context/AdminContext'
-import {toast} from 'react-toastify'
+import {toast} from 'react-hot-toast'
 import axios from 'axios'
 
 const AddDoctor = () => {

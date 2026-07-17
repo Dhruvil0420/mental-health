@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { assets } from '../../assets/assets'
 import { AdminContext } from '../../context/AdminContext'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import axios from 'axios'
 
 const AllApointments = () => {
@@ -133,92 +133,98 @@ const AllApointments = () => {
   }
 
   return (
-    <div className='m-5'>
-      <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6'>
-        <h1 className='text-2xl font-semibold'>All Appointments</h1>
+    <div className="p-6 max-w-7xl mx-auto space-y-8 animate-fadeIn">
+      {/* Header & Controls */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-800">All Appointments</h1>
+          <p className="text-sm text-slate-500 mt-1">Review and manage patient appointment logs and transaction statuses.</p>
+        </div>
         
         {/* Search and Filter */}
-        <div className='flex flex-col sm:flex-row gap-3 w-full sm:w-auto'>
-          <div className='relative'>
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <div className="relative w-full sm:w-64">
             <input
-              type='text'
-              placeholder='Search appointments...'
+              type="text"
+              placeholder="Search patients, doctors..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className='pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary w-full sm:w-64'
+              className="pl-10 pr-4 py-2 bg-white border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary rounded-xl outline-none focus:outline-none w-full text-sm transition-all shadow-sm"
             />
-            <img className='absolute left-3 top-2.5 w-4 h-4 text-gray-400' src={assets.list_icon} alt="Search" />
+            <img className="absolute left-3 top-3 w-4 h-4 opacity-50" src={assets.list_icon} alt="Search" />
           </div>
           
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className='px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary'
+            className="px-4 py-2 bg-white border border-slate-200 focus:ring-2 focus:ring-primary/20 focus:border-primary rounded-xl outline-none focus:outline-none text-sm transition-all shadow-sm cursor-pointer"
           >
-            <option value='All'>All Status</option>
-            <option value='Scheduled'>Scheduled</option>
-            <option value='Completed'>Completed</option>
-            <option value='Cancelled'>Cancelled</option>
+            <option value="All">All Status</option>
+            <option value="Scheduled">Scheduled</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
           </select>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6'>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {loading ? (
-          <div className='col-span-4 flex justify-center items-center h-32'>
-            <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+          <div className="col-span-4 flex justify-center items-center h-24">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : (
           <>
-            <div className='bg-white border border-gray-200 rounded-lg p-4'>
-                <div className='flex items-center gap-3'>
-                    <img className='w-10' src={assets.appointments_icon} alt="Total" />
+            <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center">
+                        <img className="w-6 h-6 opacity-75" src={assets.appointments_icon} alt="Total" />
+                    </div>
                     <div>
-                        <p className='text-xl font-semibold'>{appointments.length}</p>
-                        <p className='text-gray-600 text-sm'>Total Appointments</p>
+                        <h4 className="text-2xl font-bold text-slate-800">{appointments.length}</h4>
+                        <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mt-0.5">Total</p>
                     </div>
                 </div>
             </div>
             
-            <div className='bg-blue-50 border border-blue-200 rounded-lg p-4'>
-                <div className='flex items-center gap-3'>
-                    <div className='w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center'>
-                        <span className='text-blue-600 font-semibold'>S</span>
+            <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center font-bold text-sm">
+                        S
                     </div>
                     <div>
-                        <p className='text-xl font-semibold text-blue-600'>
+                        <h4 className="text-2xl font-bold text-slate-800">
                             {appointments.filter(a => !a.cancelled && !a.isCompleted).length}
-                        </p>
-                        <p className='text-gray-600 text-sm'>Scheduled</p>
+                        </h4>
+                        <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mt-0.5">Scheduled</p>
                     </div>
                 </div>
             </div>
             
-            <div className='bg-green-50 border border-green-200 rounded-lg p-4'>
-                <div className='flex items-center gap-3'>
-                    <div className='w-10 h-10 bg-green-100 rounded-full flex items-center justify-center'>
-                        <span className='text-green-600 font-semibold'>C</span>
+            <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center font-bold text-sm">
+                        C
                     </div>
                     <div>
-                        <p className='text-xl font-semibold text-green-600'>
+                        <h4 className="text-2xl font-bold text-slate-800">
                             {appointments.filter(a => a.isCompleted).length}
-                        </p>
-                        <p className='text-gray-600 text-sm'>Completed</p>
+                        </h4>
+                        <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mt-0.5">Completed</p>
                     </div>
                 </div>
             </div>
             
-            <div className='bg-red-50 border border-red-200 rounded-lg p-4'>
-                <div className='flex items-center gap-3'>
-                    <div className='w-10 h-10 bg-red-100 rounded-full flex items-center justify-center'>
-                        <span className='text-red-600 font-semibold'>X</span>
+            <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center font-bold text-sm">
+                        X
                     </div>
                     <div>
-                        <p className='text-xl font-semibold text-red-600'>
+                        <h4 className="text-2xl font-bold text-slate-800">
                             {appointments.filter(a => a.cancelled).length}
-                        </p>
-                        <p className='text-gray-600 text-sm'>Cancelled</p>
+                        </h4>
+                        <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider mt-0.5">Cancelled</p>
                     </div>
                 </div>
             </div>
@@ -227,115 +233,104 @@ const AllApointments = () => {
       </div>
 
       {/* Appointments Table */}
-      <div className='bg-white border border-gray-200 rounded-lg overflow-hidden'>
-        <div className='overflow-x-auto'>
-          <table className='w-full'>
-            <thead className='bg-gray-50 border-b border-gray-200'>
+      <div className="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse text-left text-sm text-slate-500">
+            <thead className="bg-slate-50/70 border-b border-slate-100 text-slate-500 font-semibold tracking-wider text-xs uppercase">
               <tr>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Appointment ID
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Patient
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Doctor
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Date & Time
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Fees
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Status
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Payment
-                </th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
-                  Actions
-                </th>
+                <th className="px-6 py-4">ID</th>
+                <th className="px-6 py-4">Patient</th>
+                <th className="px-6 py-4">Doctor</th>
+                <th className="px-6 py-4">Date & Time</th>
+                <th className="px-6 py-4">Fees</th>
+                <th className="px-6 py-4">Status</th>
+                <th className="px-6 py-4">Payment</th>
+                <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className='bg-white divide-y divide-gray-200'>
+            <tbody className="divide-y divide-slate-100">
               {loading ? (
                 <tr>
-                  <td colSpan="8" className='px-6 py-12 text-center'>
-                    <div className='flex justify-center items-center'>
-                      <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
+                  <td colSpan="8" className="px-6 py-16 text-center">
+                    <div className="flex justify-center items-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                     </div>
                   </td>
                 </tr>
               ) : filteredAppointments.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className='px-6 py-12 text-center text-gray-500'>
-                    No appointments found matching your criteria.
+                  <td colSpan="8" className="px-6 py-16 text-center text-slate-400">
+                    No appointments matching search criteria.
                   </td>
                 </tr>
               ) : (
                 filteredAppointments.map((appointment) => (
-                  <tr key={appointment._id} className='hover:bg-gray-50'>
-                    <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
-                      {appointment._id.slice(-6)}
+                  <tr key={appointment._id} className="hover:bg-slate-50/30 transition-all">
+                    <td className="px-6 py-4 font-mono text-xs text-slate-400">
+                      #{appointment._id.slice(-6)}
                     </td>
-                    <td className='px-6 py-4 whitespace-nowrap'>
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
-                        <div className='text-sm font-medium text-gray-900'>
+                        <div className="text-sm font-semibold text-slate-800">
                           {appointment.userData.name}
                         </div>
-                        <div className='text-sm text-gray-500'>
+                        <div className="text-xs text-slate-400 mt-0.5">
                           {appointment.userData.email}
                         </div>
                       </div>
                     </td>
-                    <td className='px-6 py-4 whitespace-nowrap'>
+                    <td className="px-6 py-4 whitespace-nowrap">
                       <div>
-                        <div className='text-sm font-medium text-gray-900'>
+                        <div className="text-sm font-semibold text-slate-800">
                           {appointment.docData.name}
                         </div>
-                        <div className='text-sm text-gray-500'>
+                        <div className="text-xs text-slate-400 mt-0.5">
                           {appointment.docData.speciality}
                         </div>
                       </div>
                     </td>
-                    <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-900'>
-                      <div>{appointment.slotDate}</div>
-                      <div className='text-gray-500'>{appointment.slotTime}</div>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-slate-700 font-medium">{appointment.slotDate}</div>
+                      <div className="text-xs text-slate-400 mt-0.5">{appointment.slotTime}</div>
                     </td>
-                    <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-slate-800">
                       ${appointment.amount}
                     </td>
-                    <td className='px-6 py-4 whitespace-nowrap'>
-                      <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(appointment)}`}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-semibold rounded-full ${
+                        appointment.cancelled ? 'bg-red-50 text-red-600 border border-red-100' :
+                        appointment.isCompleted ? 'bg-green-50 text-green-600 border border-green-100' :
+                        'bg-blue-50 text-blue-600 border border-blue-100'
+                      }`}>
                         {getStatusText(appointment)}
                       </span>
                     </td>
-                    <td className='px-6 py-4 whitespace-nowrap'>
-                      <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getPaymentColor(appointment)}`}>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 text-xs font-semibold rounded-full ${
+                        appointment.cancelled ? 'bg-red-50 text-red-600 border border-red-100' :
+                        appointment.payment ? 'bg-green-50 text-green-600 border border-green-100' :
+                        'bg-yellow-50 text-yellow-600 border border-yellow-100'
+                      }`}>
                         {getPaymentText(appointment)}
                       </span>
                     </td>
-                    <td className='px-6 py-4 whitespace-nowrap text-sm font-medium'>
-                      <div className='flex gap-2'>
-                        <button className='text-primary hover:text-primary/80'>
-                          <img className='w-4 h-4' src={assets.list_icon} alt="View" />
-                        </button>
+                    <td className="px-6 py-4 whitespace-nowrap text-right">
+                      <div className="flex gap-2.5 justify-end">
                         {!appointment.cancelled && !appointment.isCompleted && (
                           <>
                             <button 
                               onClick={() => handleCompleteAppointment(appointment._id)}
-                              className='text-green-600 hover:text-green-800'
-                              title="Mark as completed"
+                              className="w-7 h-7 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-600 flex items-center justify-center transition-all duration-200 active:scale-90 shadow-sm"
+                              title="Mark Completed"
                             >
-                              <img className='w-4 h-4' src={assets.tick_icon} alt="Complete" />
+                              <img className="w-3 h-3" src={assets.tick_icon} alt="Complete" />
                             </button>
                             <button 
                               onClick={() => handleCancelAppointment(appointment._id)}
-                              className='text-red-600 hover:text-red-800'
-                              title="Cancel appointment"
+                              className="w-7 h-7 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center transition-all duration-200 active:scale-90 shadow-sm"
+                              title="Cancel Appointment"
                             >
-                              <img className='w-4 h-4' src={assets.cancel_icon} alt="Cancel" />
+                              <img className="w-3 h-3" src={assets.cancel_icon} alt="Cancel" />
                             </button>
                           </>
                         )}
@@ -350,20 +345,20 @@ const AllApointments = () => {
       </div>
 
       {/* Pagination */}
-      <div className='flex items-center justify-between mt-6'>
-        <div className='text-sm text-gray-700'>
-          Showing <span className='font-medium'>1</span> to{' '}
-          <span className='font-medium'>{filteredAppointments.length}</span> of{' '}
-          <span className='font-medium'>{filteredAppointments.length}</span> results
+      <div className="flex items-center justify-between">
+        <div className="text-xs text-slate-400">
+          Showing <span className="font-semibold text-slate-700">1</span> to{' '}
+          <span className="font-semibold text-slate-700">{filteredAppointments.length}</span> of{' '}
+          <span className="font-semibold text-slate-700">{filteredAppointments.length}</span> results
         </div>
-        <div className='flex gap-2'>
-          <button className='px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50'>
+        <div className="flex gap-2">
+          <button className="px-4 py-1.5 border border-slate-200 text-slate-600 rounded-lg text-xs font-semibold hover:bg-slate-50 transition-all active:scale-95">
             Previous
           </button>
-          <button className='px-3 py-1 bg-primary text-white rounded-md text-sm'>
+          <button className="px-4 py-1.5 bg-primary text-white rounded-lg text-xs font-semibold shadow hover:bg-opacity-95 transition-all active:scale-95">
             1
           </button>
-          <button className='px-3 py-1 border border-gray-300 rounded-md text-sm hover:bg-gray-50'>
+          <button className="px-4 py-1.5 border border-slate-200 text-slate-600 rounded-lg text-xs font-semibold hover:bg-slate-50 transition-all active:scale-95">
             Next
           </button>
         </div>
