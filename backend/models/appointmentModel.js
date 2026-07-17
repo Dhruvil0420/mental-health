@@ -50,6 +50,18 @@ const appointmentSchema = new mongoose.Schema({
     isCompleted: {
         type: Boolean,
         default: false
+    },
+    rating: {
+        type: Number,
+        default: 0
+    },
+    comment: {
+        type: String,
+        default: ""
+    },
+    isReviewed: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 

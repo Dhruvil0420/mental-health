@@ -54,8 +54,15 @@ const doctorSchema = new mongoose.Schema({
         type:Object,
         default:{},
 
+    },
+    averageRating: {
+        type: Number,
+        default: 0
+    },
+    totalReviews: {
+        type: Number,
+        default: 0
     }
-
 
     
 

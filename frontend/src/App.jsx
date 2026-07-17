@@ -11,6 +11,7 @@ import MyAppointment from './pages/MyAppointment'
 import Appointment from './pages/Appointment'
 import PaymentSuccess from './pages/PaymentSuccess'
 import PaymentCancel from './pages/PaymentCancel'
+import NotFound from './pages/NotFound'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { Toaster } from 'react-hot-toast';
@@ -35,6 +36,7 @@ const App = () => {
         <Route path='/appointment/:docId' element={<Appointment/>}/>
         <Route path='/payment-success' element={<PaymentSuccess/>}/>
         <Route path='/payment-cancel' element={<PaymentCancel/>}/>
+        <Route path='*' element={<NotFound/>}/>
       </Routes>
       <Footer/>
     </div>

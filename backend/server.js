@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config'
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import connectDB from './config/mongodb.js';
 import connectCloudinary from './config/cloudinary.js';
 import adminRouter from './routes/adminRoute.js';
@@ -16,6 +18,18 @@ import paymentRouter from './routes/paymentRoute.js';
 const app = express()
 const port = process.env.PORT || 4000
 
+// Rate limiting middleware configuration (100 requests per 15 minutes per IP)
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, 
+  message: {
+    success: false,
+    message: 'Too many requests from this IP, please try again after 15 minutes.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 connectDB()
 connectCloudinary()
 
@@ -23,7 +37,8 @@ connectCloudinary()
 app.post('/api/payment/webhook', express.raw({ type: 'application/json' }), stripeWebhookHandler);
 
 //middlewares
-
+app.use(helmet());
+app.use(limiter);
 app.use(express.json()) 
 app.use(cors())
 

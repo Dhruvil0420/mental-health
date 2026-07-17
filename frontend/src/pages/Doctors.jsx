@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
+import { DoctorCardSkeleton } from '../components/SkeletonLoader'
 
 const Doctors = () => {
   const { speciality } = useParams()
@@ -9,6 +10,8 @@ const Doctors = () => {
   const [showFilter, setShowFilter] = useState(false)
   const [filterDoc, setFilterDoc] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [onlyAvailable, setOnlyAvailable] = useState(false)
   const itemsPerPage = 8
 
   const navigate = useNavigate()
@@ -16,15 +19,29 @@ const Doctors = () => {
   useEffect(() => {
     const decoded = decodeURIComponent(speciality || "").toLowerCase()
 
-    const filtered = speciality
+    let filtered = speciality
       ? doctors.filter(doc =>
           doc.speciality?.toLowerCase().includes(decoded)
         )
       : doctors
 
+    // Apply search query filter (searches by name or speciality)
+    if (searchQuery.trim() !== '') {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(doc =>
+        doc.name.toLowerCase().includes(query) ||
+        doc.speciality.toLowerCase().includes(query)
+      )
+    }
+
+    // Apply availability filter
+    if (onlyAvailable) {
+      filtered = filtered.filter(doc => doc.available)
+    }
+
     setFilterDoc(filtered)
-    setCurrentPage(1) // Reset page when speciality changes
-  }, [doctors, speciality])
+    setCurrentPage(1) // Reset page when filters change
+  }, [doctors, speciality, searchQuery, onlyAvailable])
 
   const totalPages = Math.ceil(filterDoc.length / itemsPerPage)
   const indexOfLastItem = currentPage * itemsPerPage
@@ -41,12 +58,40 @@ const Doctors = () => {
   ]
 
   return (
-    <div>
-      <p className="text-gray-600">
-        Browse our mental health specialists.
-      </p>
+    <div className="space-y-6">
+      {/* Title & Filter Controls Bar */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <p className="text-gray-600">
+            Browse our mental health specialists.
+          </p>
+        </div>
+        
+        {/* Search Input and Availability Checkbox */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto items-stretch sm:items-center">
+          <div className="relative flex-1 sm:w-60">
+            <input
+              type="text"
+              placeholder="Search doctor by name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="px-4 py-2 bg-white border border-slate-200 focus:ring-2 focus:ring-primary/20 rounded-xl outline-none focus:outline-none focus:border-primary text-sm transition-all shadow-sm w-full"
+            />
+          </div>
+          
+          <label className="flex items-center gap-2 cursor-pointer select-none text-sm text-gray-600 bg-white px-4 py-2 border border-slate-200 rounded-xl shadow-sm hover:bg-slate-50 transition-colors">
+            <input
+              type="checkbox"
+              checked={onlyAvailable}
+              onChange={(e) => setOnlyAvailable(e.target.checked)}
+              className="accent-primary w-4 h-4 cursor-pointer"
+            />
+            <span className="whitespace-nowrap font-medium">Available Only</span>
+          </label>
+        </div>
+      </div>
 
-      <div className="flex flex-col sm:flex-row items-start gap-5 mt-5">
+      <div className="flex flex-col sm:flex-row items-start gap-5">
 
         {/* FILTER BUTTON (MOBILE) */}
         <button
@@ -85,7 +130,11 @@ const Doctors = () => {
             className="w-full grid gap-4 gap-y-6"
             style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}
           >
-            {currentDoctors.length > 0 ? (
+            {doctors.length === 0 ? (
+              Array.from({ length: 8 }).map((_, idx) => (
+                <DoctorCardSkeleton key={idx} />
+              ))
+            ) : currentDoctors.length > 0 ? (
               currentDoctors.map((item) => (
                 <div
                   key={item._id}
@@ -95,9 +144,9 @@ const Doctors = () => {
                   <img className="bg-blue-50" src={item.image} alt={item.name} />
 
                   <div className="p-4">
-                    <div className="flex items-center gap-2 text-sm text-green-500">
-                      <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                      <p>Available</p>
+                    <div className={`flex items-center gap-2 text-sm ${item.available ? 'text-green-500' : 'text-gray-400'}`}>
+                      <span className={`w-2 h-2 rounded-full ${item.available ? 'bg-green-500' : 'bg-gray-300'}`}></span>
+                      <p>{item.available ? 'Available' : 'Unavailable'}</p>
                     </div>
 
                     <p className="text-gray-900 text-lg font-medium">
@@ -107,6 +156,12 @@ const Doctors = () => {
                     <p className="text-gray-600 text-sm">
                       {item.speciality}
                     </p>
+                    
+                    <div className="flex items-center gap-1 mt-1.5 select-none">
+                      <span className="text-amber-400 text-sm">★</span>
+                      <span className="text-slate-700 text-xs font-bold">{item.averageRating || '0.0'}</span>
+                      <span className="text-slate-400 text-[10px]">({item.totalReviews || 0})</span>
+                    </div>
                   </div>
                 </div>
               ))

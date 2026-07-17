@@ -179,6 +179,13 @@ const Appointment = () => {
             </p>  
             <button className='py-0.5 px-2 border text-xs rounded-full'>{docInfo.experience}</button>
           </div>
+
+          {/* Doctor Rating Stars */}
+          <div className="flex items-center gap-1.5 mt-2 select-none">
+            <span className="text-amber-400 font-bold text-base">★</span>
+            <span className="text-slate-700 text-sm font-semibold">{docInfo.averageRating || '0.0'}</span>
+            <span className="text-slate-400 text-xs font-medium">({docInfo.totalReviews || 0} reviews)</span>
+          </div>
           {/*---------Doctor About ---------- */}
           <div>
             <p className='flex items-center gap-1 text-sm font-medium text-gray-900 mt-3'>
