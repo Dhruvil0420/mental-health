@@ -37,7 +37,9 @@ connectCloudinary()
 app.post('/api/payment/webhook', express.raw({ type: 'application/json' }), stripeWebhookHandler);
 
 //middlewares
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 app.use(limiter);
 app.use(express.json()) 
 app.use(cors())

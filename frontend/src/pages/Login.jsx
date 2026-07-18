@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast'
 import { useEffect } from 'react'
 import { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { assets } from '../assets/assets'
 
 const Login = () => {
   const {backendUrl,token,setToken} = useContext(AppContext)
@@ -90,8 +91,14 @@ const Login = () => {
   }, [token])
 
   return (
-    <form  onSubmit={onSubmitHandler} className='min-h-[80vh] flex items-center'>
-      <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border border-slate-200 rounded-2xl text-sm shadow-lg bg-white'>
+    <form  onSubmit={onSubmitHandler} className='min-h-[90vh] flex items-center justify-center relative'>
+      <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border border-slate-200 rounded-2xl text-sm shadow-lg bg-white relative'>
+        <img 
+          onClick={() => navigate('/')} 
+          className='w-4 absolute top-4 right-4 cursor-pointer opacity-40 hover:opacity-100 transition-opacity' 
+          src={assets.cross_icon} 
+          alt="Close" 
+        />
         <p className='text-2xl font-semibold text-slate-800'>
           {state === 'Sign Up' ? "Create Account":"Login"}
         </p>

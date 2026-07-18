@@ -82,12 +82,30 @@ const Navbar = () => {
                         Create account
                     </button>
             }
-            <img onClick={() =>setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
+            <svg 
+                onClick={() => setShowMenu(true)} 
+                className='w-7 h-7 md:hidden cursor-pointer text-slate-600 hover:text-primary transition-colors' 
+                fill='none' 
+                stroke='currentColor' 
+                strokeWidth='2' 
+                viewBox='0 0 24 24'
+            >
+                <path strokeLinecap='round' strokeLinejoin='round' d='M4 6h16M4 12h16M4 18h16' />
+            </svg>
             {/*----------Mobile Menu ------------- */}
-            <div className={`${showMenu ? 'fixed w-full': 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}>
+            <div className={`${showMenu ? 'fixed w-full' : 'fixed w-0 h-0 pointer-events-none'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}>
                 <div className='flex items-center justify-between px-5 py-6'>
-                    < img className='w-36' src={assets.logo} alt="" />
-                    <img className='w-7' onClick={() =>setShowMenu(false)} src={assets.cross_icon} alt="" />
+                    <img className='w-36' src={assets.logo1} alt="" />
+                    <svg 
+                        onClick={() => setShowMenu(false)} 
+                        className='w-7 h-7 cursor-pointer text-slate-600 hover:text-primary transition-colors' 
+                        fill='none' 
+                        stroke='currentColor' 
+                        strokeWidth='2' 
+                        viewBox='0 0 24 24'
+                    >
+                        <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+                    </svg>
                 </div>
                 <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium'>
                     <NavLink  onClick={() =>setShowMenu(false)} to='/'><p className='px-4 py-2 rounded inline-block'>HOME</p></NavLink>

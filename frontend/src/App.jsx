@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Doctors from './pages/Doctors'
 import Login from './pages/Login'
@@ -18,11 +18,14 @@ import { Toaster } from 'react-hot-toast';
 
 
 const App = () => {
+  const location = useLocation()
+  const isLoginPage = location.pathname === '/login'
+
   return (
 
     <div className='mx-4 sm:mx-[10%]'> 
       <Toaster position="top-center" reverseOrder={false} />
-    <Navbar/>
+      {!isLoginPage && <Navbar/>}
 
       <Routes>
         <Route path='/' element={<Home/>}/>
@@ -38,7 +41,7 @@ const App = () => {
         <Route path='/payment-cancel' element={<PaymentCancel/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
-      <Footer/>
+      {!isLoginPage && <Footer/>}
     </div>
   )
 }

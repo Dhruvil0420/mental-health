@@ -1,21 +1,25 @@
 import nodemailer from 'nodemailer';
 
 // Setup email transporter configuration
+const emailUser = process.env.EMAIL_USER || process.env.SMTP_USER;
+const emailPass = process.env.EMAIL_PASS || process.env.SMTP_PASS;
+const senderEmail = process.env.SENDER_EMAIL || emailUser || 'no-reply@prescripto.com';
+
 let transporter = null;
 
-if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+if (emailUser && emailPass) {
   transporter = nodemailer.createTransport({
     host: 'smtp-relay.brevo.com',
     port: 587,
     secure: false, // TLS
     auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
+      user: emailUser,
+      pass: emailPass
     }
   });
   console.log('Nodemailer Brevo SMTP Transporter configured successfully');
 } else {
-  console.warn('Nodemailer Warning: EMAIL_USER and EMAIL_PASS environment variables are not set. Emails will log to server console.');
+  console.warn('Nodemailer Warning: EMAIL_USER/SMTP_USER and EMAIL_PASS/SMTP_PASS environment variables are not set. Emails will log to server console.');
 }
 
 /**
@@ -23,7 +27,7 @@ if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
  */
 export const sendAppointmentBookingEmail = async (userEmail, appointment) => {
   const mailOptions = {
-    from: `"Prescripto Healthcare" <${process.env.EMAIL_USER || 'no-reply@prescripto.com'}>`,
+    from: `"Prescripto Healthcare" <${senderEmail}>`,
     to: userEmail,
     subject: 'Appointment Booked Successfully - Prescripto',
     html: `
@@ -81,7 +85,7 @@ export const sendAppointmentBookingEmail = async (userEmail, appointment) => {
  */
 export const sendAppointmentCancellationEmail = async (userEmail, appointment) => {
   const mailOptions = {
-    from: `"Prescripto Healthcare" <${process.env.EMAIL_USER || 'no-reply@prescripto.com'}>`,
+    from: `"Prescripto Healthcare" <${senderEmail}>`,
     to: userEmail,
     subject: 'Appointment Cancelled - Prescripto',
     html: `
